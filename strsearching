@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+void baseIO(string s) {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  freopen((s + ".in").c_str(), "r", stdin);
+  freopen((s + ".out").c_str(), "w", stdout);
+}
+string anim[100][100];
+int fnum[100];
+string tname;
+int main() {
+  baseIO("guess");
+  int n, smax = 0;
+  cin >> n;
+  for (int i = 0; i < n; i++) {
+    cin >> tname >> fnum[i];
+    for (int j = 0; j < fnum[i]; j++)
+      cin >> anim[i][j];
+  } // in
+  for (int i = 0; i < n; i++) {
+    for (int j = i + 1; j < n; j++) {
+      // 拿出第i个动物的每个特征
+      int temp = 0;
+      for (int k = 0; k < fnum[i]; k++) {
+        // 和第j个动物的每个特征
+        for (int z = 0; z < fnum[j]; z++) {
+          if (anim[i][k] == anim[j][z])
+            temp++;
+        }
+      }
+      if (temp > smax)
+        smax = temp;
+    }
+  }
+  cout << smax + 1;
+  return 0;
+}
